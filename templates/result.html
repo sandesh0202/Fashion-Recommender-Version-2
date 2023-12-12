@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommender Result</title>
+</head>
+<body>
+    <h1>Recommender Result</h1>
+
+    {% if uploaded_image_path %}
+        <h2>What you like</h2>
+        <img src="{{ url_for('static', filename='uploads/' + uploaded_image_path) }}" alt="Uploaded Image">
+    {% endif %}
+
+    {% if image_paths %}
+        <h2>Top 5 Recommendations</h2>
+        <ul>
+            {% for image_path in image_paths %}
+                <li>
+                    <img src="{{ url_for('static', filename='myntradataset/images/' + image_path) }}" alt="Recommended Image">
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No images to display.</p>
+    {% endif %}
+</body>
+</html>
