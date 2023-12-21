@@ -2,28 +2,57 @@ from flask import Flask, render_template, request, send_from_directory
 import os
 import numpy as np
 import pickle
-import tensorflow
-from keras.applications import ResNet50
+import tensorflow as tf
+from keras.applications import ResNet50, Xception
 from keras.applications.imagenet_utils import preprocess_input
 from keras.utils import load_img, img_to_array
 from keras.layers import GlobalMaxPooling2D
 from sklearn.neighbors import NearestNeighbors
 from numpy.linalg import norm
 from PIL import Image
+from sklearn.decomposition import PCA
+import cv2
+
 
 app = Flask(__name__)
 
+
 # Load pre-trained model and data
-feature_list = np.array(pickle.load(open('embeddings.pkl', 'rb')))
-filenames = np.array(pickle.load(open('filenames.pkl', 'rb')))
+feature_list = np.array(pickle.load(open('xception_pca.pkl', 'rb')))
+filenames = np.array(pickle.load(open('filenamesPC.pkl', 'rb')))
 
-model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
-model.trainable = False
+# Pre trained model
+base_model = tf.keras.applications.xception.Xception(weights='imagenet',
+                      include_top=False,
+                      input_shape = (224, 224, 3))
+base_model.trainable = False
 
-model = tensorflow.keras.Sequential([
-    model,
+model = tf.keras.Sequential([
+    base_model,
     GlobalMaxPooling2D()
 ])
+
+# Feature Extraction
+def feature_extraction(img_path, model):
+    img = load_img(img_path, target_size=(224, 224))
+    img_array = img_to_array(img)
+    
+    img_array_bgr = cv2.cvtColor(img_array, cv2.COLOR_RGB2BGR)
+    
+    expanded_img_array = np.expand_dims(img_array_bgr, axis=0)
+    preprocessed_img = tf.keras.applications.xception.preprocess_input(expanded_img_array)
+    result = model.predict(preprocessed_img).flatten()
+    normalized_result = result / norm(result)
+
+    return normalized_result
+
+def recommend(features, feature_list):
+    neighbors = NearestNeighbors(n_neighbors=6, algorithm='brute', metric='euclidean')
+    neighbors.fit(feature_list)
+
+    x, indices = neighbors.kneighbors([features])
+
+    return indices
 
 # Add a Content Security Policy (CSP) header
 @app.after_request
@@ -68,25 +97,6 @@ def upload():
         print(f"Error processing file: {e}")
         return render_template('index.html', error="Error processing file")
 
-
-
-def feature_extraction(img_path, model):
-    img = load_img(img_path, target_size=(224, 224, 3))
-    img_array = img_to_array(img)
-    expanded_img_array = np.expand_dims(img_array, axis=0)
-    preprocessed_img = preprocess_input(expanded_img_array)
-    result = model.predict(preprocessed_img).flatten()
-    normalized_result = result / norm(result)
-
-    return normalized_result
-
-def recommend(features, feature_list):
-    neighbors = NearestNeighbors(n_neighbors=6, algorithm='brute', metric='euclidean')
-    neighbors.fit(feature_list)
-
-    x, indices = neighbors.kneighbors([features])
-
-    return indices
 
 if __name__ == '__main__':
     app.run(debug=True)

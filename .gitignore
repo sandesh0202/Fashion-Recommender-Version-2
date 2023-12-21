@@ -161,4 +161,5 @@ cython_debug/
 
 static*/
 embeddings.pkl
-filenames.pkl
+filenamesPC.pkl
+xception_pca.pkl
