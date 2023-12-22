@@ -1,8 +1,10 @@
 # Similar Product Recommender
-
+This project implements an Similar Product Recommender using a Pre trained Xception model and Flask App. We leverages transfer learning with a pre-trained Xception model for feature extraction, which creates visual representation of images and k-Nearest Neighbors for finding similar images. 
 
 ## Dataset 
 We use ['Fashion Product Images (Small)'](https://www.kaggle.com/datasets/paramaggarwal/fashion-product-images-small/data) dataset which is a smaller version of Fashion Product Images Dataset which contains dataset scraped from Myntra. There are total 44,000 images and also You can also leverage styles.csv and styles.json file for using product text information.
+
+## Feature Extraction
 
 ## Project Workflow
 #### Image Upload
