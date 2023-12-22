@@ -12,7 +12,7 @@ import cv2
 app = Flask(__name__)
 
 # Load pre-trained model and data
-feature_list = np.array(pickle.load(open('xception_pca.pkl', 'rb')))
+feature_list = np.array(pickle.load(open('xception_features.pkl', 'rb')))
 filenames = np.array(pickle.load(open('filenamesPC.pkl', 'rb')))
 
 # Pre trained model

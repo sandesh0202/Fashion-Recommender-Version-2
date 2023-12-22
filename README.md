@@ -7,6 +7,7 @@ This Recommendation System can be used by small scale E-commerce platforms who c
 We use ['Fashion Product Images (Small)'](https://www.kaggle.com/datasets/paramaggarwal/fashion-product-images-small/data) dataset which is a smaller version of Fashion Product Images Dataset which contains dataset scraped from Myntra. There are total 44,000 images and also You can also leverage styles.csv and styles.json file for using product text information.
 
 ## Feature Extraction
+Feature Extraction is a process where relevant information is distilled from raw data, It enables the creation of Representation of image as a Feature Vector. In the context of our project feature extraction involves using a Xception Model, to analyze and identify significant visual patterns and characteristics within an Uploaded image. By feeding the Image through the Xception model, the system captures high-level Features that capture the unique visual content, reducing the Dimensionality of the data while retaining its essential information.
 
 ## Project Workflow
 #### Image Upload
@@ -55,5 +56,5 @@ git clone https://github.com/sandesh0202/Fashion-Recommender-Version-2.git
     python app.py
   ```
 
-# ThankYou, Project by [@Sandesh](https://github.com/sandesh0202)
+## ThankYou, Project by [@Satyajit](https://github.com/pik1989) [@Sandesh](https://github.com/sandesh0202)
  
