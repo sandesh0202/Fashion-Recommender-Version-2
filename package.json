@@ -1,0 +1,15 @@
+{
+  "name": "fashion",
+  "version": "1.0.0",
+  "description": "We use ['Fashion Product Images (Small)'](https://www.kaggle.com/datasets/paramaggarwal/fashion-product-images-small/data) dataset which is a smaller version of Fashion Product Images Dataset which contains dataset scraped from Myntra. There are total 44,000 images and also You can also leverage styles.csv and styles.json file for using product text information.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

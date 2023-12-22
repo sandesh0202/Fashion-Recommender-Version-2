@@ -3,19 +3,13 @@ import os
 import numpy as np
 import pickle
 import tensorflow as tf
-from keras.applications import ResNet50, Xception
-from keras.applications.imagenet_utils import preprocess_input
 from keras.utils import load_img, img_to_array
 from keras.layers import GlobalMaxPooling2D
 from sklearn.neighbors import NearestNeighbors
 from numpy.linalg import norm
-from PIL import Image
-from sklearn.decomposition import PCA
 import cv2
 
-
 app = Flask(__name__)
-
 
 # Load pre-trained model and data
 feature_list = np.array(pickle.load(open('xception_pca.pkl', 'rb')))
