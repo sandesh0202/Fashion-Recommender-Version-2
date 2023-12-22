@@ -43,10 +43,10 @@ git clone https://github.com/sandesh0202/Fashion-Recommender-Version-2.git
   - Inside your project file create a folder named static
   - Extract you dataset in this file
     
-- Feature Extraction process, (Check trials.ipynb file)
-  - Run it step by step
-  - Adjust file paths and names of files according to your need
-  Note - If your PC is not able to do the feature extraction process, run the same notebook on Google Colab or Kaggle and save the download pickle file
+- Feature Extraction process, (Check training.ipynb file)
+  - Run training.ipynb step by step for Feature Extraction of all images in dataset
+  - Adjust file paths and names of files according to your need in this notebook
+  Note - If your PC is not able to do the feature extraction process, run the same notebook on Google Colab or Kaggle, download the pickle file and save that pickle file inside your project 
 
 - app.py
   - Optimize all file paths according to your file paths
