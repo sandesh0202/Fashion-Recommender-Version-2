@@ -42,7 +42,7 @@ git clone https://github.com/sandesh0202/Fashion-Recommender-Version-2.git
 ```
 - Dataset -
   - Inside your project file create a folder named static
-  - Extract you dataset in this file
+  - Extract your dataset in this file
     
 - Feature Extraction process, (Check training.ipynb file)
   - Run training.ipynb step by step for Feature Extraction of all images in dataset
@@ -54,6 +54,11 @@ git clone https://github.com/sandesh0202/Fashion-Recommender-Version-2.git
   - run app.py
   ```
     python app.py
+  ```
+- node js integration
+  - Install node.js in your file, it will install all required files
+  ```
+    npm install
   ```
 
 ## ThankYou, Project by [@Satyajit](https://github.com/pik1989) [@Sandesh](https://github.com/sandesh0202)
