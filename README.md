@@ -61,5 +61,5 @@ git clone https://github.com/sandesh0202/Fashion-Recommender-Version-2.git
     npm install
   ```
 
-## ThankYou, Project by [@Satyajit](https://github.com/pik1989) [@Sandesh](https://github.com/sandesh0202) [Shardul]
+## ThankYou, Project by [@Satyajit](https://github.com/pik1989) [@Sandesh](https://github.com/sandesh0202) Shardul
  
