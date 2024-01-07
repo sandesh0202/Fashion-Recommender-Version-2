@@ -1,15 +1,24 @@
 from flask import Flask, render_template, request, send_from_directory
 import os
 import numpy as np
+import pandas as pd
 import pickle
 import tensorflow as tf
 from keras.utils import load_img, img_to_array
 from keras.layers import GlobalMaxPooling2D
 from sklearn.neighbors import NearestNeighbors
+from product_display import get_random_products, get_product_details_by_id
 from numpy.linalg import norm
 import cv2
 
 app = Flask(__name__)
+
+# Set the UPLOAD_FOLDER
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Set the number of random products to display
+NUM_PRODUCTS_TO_DISPLAY = 10
 
 # Load pre-trained model and data
 feature_list = np.array(pickle.load(open('xception_features.pkl', 'rb')))
@@ -56,40 +65,37 @@ def add_security_headers(response):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Call the get_random_products function to get 20 random products
+    random_products = get_random_products(num_products=NUM_PRODUCTS_TO_DISPLAY)
 
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    # Extract product details from the DataFrame
+    product_data = [
+        {'productDisplayName': row['productDisplayName'], 'id': row['id'], 'paths': row['paths']} for _, row in
+        random_products.iterrows()
+    ]
 
-@app.route('/upload', methods=['POST'])
-def upload():
-    if 'file' not in request.files:
-        return render_template('index.html', error="No file part")
+    return render_template('index.html', products=product_data)
 
-    file = request.files['file']
+@app.route('/product/<int:product_id>')
+def product_details(product_id):
+    # Call the get_product_details_by_id function to get details for the main product
+    main_product_details = get_product_details_by_id(product_id)
 
-    if file.filename == '':
-        return render_template('index.html', error="No selected file")
+    # Extract features for the main product (assuming you have a function to extract features)
+    main_product_features = feature_extraction(('static/' + main_product_details['paths']), model)
 
-    try:
-        os.makedirs('static/uploads', exist_ok=True)
-        file_path = os.path.join('static/uploads', file.filename)
-        file.save(file_path)
+    # Use the features to recommend similar products
+    indices = recommend(main_product_features, feature_list)
+    similar_image_paths = [filenames[i] for i in indices[0][1:6]]
 
-        features = feature_extraction(file_path, model)
-        indices = recommend(features, feature_list)
+    # Fetch details for similar products
+    similar_products_details = [
+        get_product_details_by_id(int(image_path.split('/')[-1].split('.')[0])) for image_path in similar_image_paths
+    ]
 
-        # Exclude the first index and get the top 6 recommended image paths
-        top6_image_paths = [filenames[i] for i in indices[0][1:6]]
-        print("Rendering images:", top6_image_paths)  # Print for debugging
-
-        # Pass uploaded image path and top 6 image paths to the template
-        return render_template('result.html', uploaded_image_path=file.filename, image_paths=top6_image_paths)
-
-    except Exception as e:
-        print(f"Error processing file: {e}")
-        return render_template('index.html', error="Error processing file")
+    return render_template('product_details.html',
+                           product_details=main_product_details,
+                           similar_products=similar_products_details)
 
 
 if __name__ == '__main__':
