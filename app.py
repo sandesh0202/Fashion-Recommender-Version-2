@@ -8,6 +8,7 @@ from keras.layers import GlobalMaxPooling2D
 from sklearn.neighbors import NearestNeighbors
 from numpy.linalg import norm
 import cv2
+from product_display import get_random_products
 
 app = Flask(__name__)
 
@@ -30,18 +31,6 @@ model = tf.keras.Sequential([
 
 styles = pd.read_csv('static/myntradataset/new_styles.csv', on_bad_lines='skip')
 
-
-def get_random_products_trial(gender='All', article_type='All', num_products=20):
-    if gender == 'All' and article_type == 'All':
-        random_products = styles.sample(n=num_products, random_state=42)
-    elif gender == 'All':
-        random_products = styles[styles['articleType'] == article_type].sample(n=num_products, random_state=42)
-    elif article_type == 'All':
-        random_products = styles[styles['gender'] == gender].sample(n=num_products, random_state=42)
-    else:
-        random_products = styles[(styles['gender'] == gender) & (styles['articleType'] == article_type)].sample(n=num_products, random_state=42)
-
-    return random_products
 
 
 def feature_extraction(img_path, model):
@@ -82,7 +71,7 @@ def index():
         selected_gender = request.form.get('gender', 'All')
         selected_article_type = request.form.get('article_type', 'All')
 
-        index_products = get_random_products_trial(gender=selected_gender, article_type=selected_article_type, num_products=NUM_PRODUCTS_TO_DISPLAY)
+        index_products = get_random_products(gender=selected_gender, article_type=selected_article_type, num_products=NUM_PRODUCTS_TO_DISPLAY)
         product_data = [{'productDisplayName': row['productDisplayName'], 'id': row['id'], 'paths': row['paths']} for _, row in index_products.iterrows()]
 
         return render_template('index.html', products=product_data, unique_genders=unique_genders, unique_article_types=unique_article_types, selected_gender=selected_gender, selected_article_type=selected_article_type)
