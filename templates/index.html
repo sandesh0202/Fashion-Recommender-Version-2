@@ -10,14 +10,34 @@
 <body>
     <h1>Random Product List</h1>
 
+    <form method="post" action="/">
+        <label for="gender">Select Gender:</label>
+        <select name="gender" id="gender">
+            <option value="All">All</option>
+            {% for gender in unique_genders %}
+                <option value="{{ gender }}" {% if gender == selected_gender %}selected{% endif %}>{{ gender }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="article_type">Select Article Type:</label>
+        <select name="article_type" id="article_type">
+            <option value="All">All</option>
+            {% for article_type in unique_article_types %}
+                <option value="{{ article_type }}" {% if article_type == selected_article_type %}selected{% endif %}>{{ article_type }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Apply Filters">
+    </form>
+
     <div class="card-container">
         {% for product in products %}
-        <a href="{{ url_for('product_details', product_id=product['id']) }}">
-            <div class="card">
-                <img src="{{ url_for('static', filename=product['paths']) }}" alt="Product Image {{ product['id'] }}">
-                <p>Product Name: {{ product['productDisplayName'] }}</p>
-            </div>
-        </a>
+            <a href="{{ url_for('product_details', product_id=product['id']) }}">
+                <div class="card">
+                    <img src="{{ url_for('static', filename=product['paths']) }}" alt="Product Image {{ product['id'] }}">
+                    <p>Product Name: {{ product['productDisplayName'] }}</p>
+                </div>
+            </a>
         {% endfor %}
     </div>
 </body>
