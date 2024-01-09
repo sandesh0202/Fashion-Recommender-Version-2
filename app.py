@@ -9,6 +9,8 @@ from sklearn.neighbors import NearestNeighbors
 from numpy.linalg import norm
 import cv2
 from product_display import get_random_products
+#tf.keras.applications.resnet50.ResNet50
+#tf.keras.applications.xception.Xception
 
 app = Flask(__name__)
 
@@ -16,10 +18,10 @@ UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 NUM_PRODUCTS_TO_DISPLAY = 20
 
-feature_list = np.array(pickle.load(open('xception_features.pkl', 'rb')))
+feature_list = np.array(pickle.load(open('resnet_features.pkl', 'rb')))
 filenames = np.array(pickle.load(open('filenamesPC.pkl', 'rb')))
 
-base_model = tf.keras.applications.xception.Xception(weights='imagenet',
+base_model = tf.keras.applications.resnet50.ResNet50(weights='imagenet',
                       include_top=False,
                       input_shape=(224, 224, 3))
 base_model.trainable = False

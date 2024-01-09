@@ -165,3 +165,4 @@ static/uploads*/
 node_modules*/
 filenamesPC.pkl
 xception_features.pkl
+resnet_features.pkl
