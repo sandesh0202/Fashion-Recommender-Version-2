@@ -1,45 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Product List</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.5.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="{{url_for('static',filename='css/output.css')}}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.5.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
-
 <body>
-    <h1>Random Product List</h1>
+  <!--
+    This example requires some changes to your config:
+    
+    ```
+    // tailwind.config.js
+    module.exports = {
+      // ...
+      plugins: [
+        // ...
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/aspect-ratio'),
+      ],
+    }
+    ```
+  -->
+  
+  
+    <header class="relative overflow-hidden bg-white">
+      <!-- Top navigation -->
+      
+  
+      <!-- Hero section -->
+      <div class="pb-80 pt-16 sm:pb-40 sm:pt-24 lg:pb-48 lg:pt-40">
+        <div class="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
+          <div class="sm:max-w-lg">
+            <h1 class="font text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Fashion Recommeder✨
+            </h1>
+            <p class="mt-4 text-xl text-gray-500">Ditch the fashion faux pas with personalized recommendations powered by AI. Discover your inner fashion icon, one outfit
+            at a time.</p>
+          </div>
+          <div>
+            <div class="mt-10">
+              <!-- Decorative image grid -->
+              <div aria-hidden="true"
+                class="pointer-events-none lg:absolute lg:inset-y-0 lg:mx-auto lg:w-full lg:max-w-7xl">
+                <div
+                  class="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
+                  <div class="flex items-center space-x-6 lg:space-x-8">
+                    <div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                      <div class="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
+                        <img src="{{ url_for("static", filename="image1.jpeg") }}" alt=""class="h-full w-full object-cover object-center">
 
-    <form method="post" action="/">
-        <label for="gender">Select Gender:</label>
-        <select name="gender" id="gender">
-            <option value="All">All</option>
-            {% for gender in unique_genders %}
-                <option value="{{ gender }}" {% if gender == selected_gender %}selected{% endif %}>{{ gender }}</option>
-            {% endfor %}
-        </select>
-
-        <label for="article_type">Select Product:</label>
-        <select name="article_type" id="article_type">
-            <option value="All">All</option>
-            {% for article_type in unique_article_types %}
-                <option value="{{ article_type }}" {% if article_type == selected_article_type %}selected{% endif %}>{{ article_type }}</option>
-            {% endfor %}
-        </select>
-
-        <input type="submit" value="Apply Filters">
-    </form>
-
-    <div class="card-container">
-        {% for product in products %}
-            <a href="{{ url_for('product_details', product_id=product['id']) }}">
-                <div class="card">
-                    <img src="{{ url_for('static', filename=product['paths']) }}" alt="Product Image {{ product['id'] }}">
-                    <p>Product Name: {{ product['productDisplayName'] }}</p>
+                      </div>
+                     
+                    </div>
+                    <div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                      
+                      <div class="h-64 w-44 overflow-hidden rounded-lg">
+                        <img src="{{ url_for("static", filename="image2.jpeg") }}" alt=""class="h-full w-full object-cover object-center">
+                      </div>
+                      <div class="h-64 w-44 overflow-hidden rounded-lg">
+                        <img src="{{ url_for("static", filename="image3.jpeg") }}" alt=""class="h-full w-full object-cover object-center">
+                      </div>
+                    </div>
+                    <div class="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
+                      <div class="h-64 w-44 overflow-hidden rounded-lg">
+                        <img src="{{ url_for("static", filename="image4.jpeg") }}" alt=""class="h-full w-full object-cover object-center">
+                      </div>
+                     
+                    </div>
+                  </div>
                 </div>
-            </a>
-        {% endfor %}
-    </div>
-</body>
+              </div>
+  
 
+<form method="post" action="/">
+
+<label for="gender" class="block py-4 text-sm font-medium leading-6 text-gray-900">
+  <div class="label">
+    <span class="label-text text-black font-bold">Select Gender</span>
+    <span class="label-text-alt">⚥</span>
+  </div>
+</label>
+  <select name="gender" id="gender" class="border-4 border-indigo-500/75 mt-2 block w-2/3 rounded-md border-3 py-6 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+    <option >All</option>
+  {% for gender in unique_genders %}
+  <option value="{{ gender }}" {% if gender==selected_gender %}selected{% endif %}>{{ gender }}</option>
+  {% endfor %}
+  </select>
+
+
+<label  for="article_type" class="block py-4 text-sm font-medium leading-6 text-gray-900">
+  <div class="label">
+    <span class="label-text text-black font-bold">Select Product </span>
+    <span class="label-text-alt">🛍️</span>
+  </div>
+</label>
+  <select  name="article_type" id="article_type" class="border-4 border-indigo-500/75 block w-2/3 rounded-md border-3 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+    <option>All</option>
+  {% for article_type in unique_article_types %}
+  <option value="{{ article_type }}" {% if article_type==selected_article_type %}selected{% endif %}>{{ article_type }}
+  </option>
+  {% endfor %}
+  </select>
+
+<input  type="submit" value="Apply Filters" class= "my-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"/>
+ 
+
+
+</form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  
+    <header>
+      <div class="bg-white">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Results</h2>
+
+    <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+
+{% for product in products %}
+      <div class="group relative">
+        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+          <img src="{{ url_for('static', filename=product['paths']) }}" alt="Product Image {{ product['id'] }}"  class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+        </div>
+        <div class="mt-4 flex justify-between">
+          <div>
+            <h3 class="text-sm text-gray-700">
+              <a href="{{ url_for('product_details', product_id=product['id']) }}">
+                <span aria-hidden="true" class="absolute inset-0"></span>
+                {{ product['productDisplayName'] }}
+              </a>
+            </h3>
+            
+          </div>
+          
+        </div>
+      </div>
+{% endfor %}
+
+
+
+
+      <!-- More products... -->
+    </div>
+  </div>
+</div>
+    </header>
+ 
+  
+    
+  </div>
+
+</body>
 </html>
