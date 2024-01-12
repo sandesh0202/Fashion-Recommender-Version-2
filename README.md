@@ -38,7 +38,8 @@ The project uses the ['Fashion Product Images (Small)'](https://www.kaggle.com/d
 1. The uploaded image and the recommended image file paths are passed to the 'result.html' template.
 2. The web interface displays the uploaded image and a grid of visually similar recommended images.
 
-![Recommendation System]( <img width="960" alt="Screenshot 2023-12-22 175249" src="https://github.com/sandesh0202/Fashion-Recommender-Version-2/assets/74035326/778ed2cd-3721-487b-b4a6-d880e48bf054">)
+Recommendation System
+<img width="960" alt="Screenshot 2023-12-22 175249" src="https://github.com/sandesh0202/Fashion-Recommender-Version-2/assets/74035326/778ed2cd-3721-487b-b4a6-d880e48bf054">
 
 ## Feature Extraction
 
