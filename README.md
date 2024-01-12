@@ -52,11 +52,6 @@ For feature extraction, a pre-trained [Xception model](https://www.tensorflow.or
 ### Representation as a Feature Vector
 Feature extraction involves using the Xception model to identify significant visual patterns and characteristics within an uploaded image. The resulting feature vector represents a high-level abstraction of the image's visual content. By reducing the dimensionality of the data while retaining essential information, the feature vector enables effective similarity comparison with other images in the recommendation system.
 
----
-
-This comprehensive documentation provides an overview of the project, details about the dataset, and a step-by-step explanation of the project workflow and feature extraction process. Adjustments can be made to tailor the documentation to the specific details of the implementation.
-
-
 ## Index Page Documentation
 
 ### Overview
@@ -177,3 +172,4 @@ git clone https://github.com/sandesh0202/Fashion-Recommender-Version-2.git
 
 ## ThankYou, Project by [@Sandesh](https://github.com/sandesh0202) [@Satyajit](https://github.com/pik1989) Shardul
  
+---
