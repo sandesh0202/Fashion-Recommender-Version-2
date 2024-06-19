@@ -167,6 +167,6 @@ git clone https://github.com/sandesh0202/Fashion-Recommender-Version-2.git
     python app.py
   ```
 
-## ThankYou, Project by [@Sandesh](https://github.com/sandesh0202) [@Satyajit](https://github.com/pik1989) Shardul
+## ThankYou!
  
 ---
